@@ -1,0 +1,42 @@
+## Where the samples will be written
+save_data: gt-pretrain
+## Where the vocab(s) will be written
+src_vocab: gt-pretrain/gt-pretrain.vocab.src
+tgt_vocab: gt-pretrain/gt-pretrain.vocab.tgt
+# src_feats_vocab: 
+#     feat_0:  toy-es-lse/run_dep/wd.vocab.feat_0
+#     feat_1:  toy-es-lse/run_pos/wd.vocab.feat_1
+feat_merge: "concat"
+# Prevent overwriting existing files in the folder
+overwrite: True
+
+# Corpus opts:
+data:
+    corpus_1:
+        path_src: silver_ngt_lower.txt
+        path_tgt: silver_nl.txt
+        transforms: [inferfeats]
+    valid:
+        path_src: nlngt_dev_gloss_lower.txt
+        path_tgt: nlngt_dev_nl.txt
+        transforms: [inferfeats]
+# Train on a single GPU
+world_size: 1
+gpu_ranks: [0]
+
+# Where to save the checkpoints
+save_model: gt-pretrain/gt-pretrain_03
+save_checkpoint_steps: 200
+train_steps: 10000
+valid_steps: 200
+
+#both_embeddings: glove_dir/glove-sbwc.i25.vec
+# to set src and tgt embeddings separately:
+#src_embeddings: ngt_w2v.txt
+# tgt_embeddings: sonar-320.txt
+
+# supported types: GloVe, word2vec
+#embeddings_type: "word2vec"
+
+# word_vec_size need to match with the pretrained embeddings dimensions
+#word_vec_size: 320
