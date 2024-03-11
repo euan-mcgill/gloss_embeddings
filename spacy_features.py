@@ -12,8 +12,8 @@ OUT_POS_FILE = sys.argv[3]
 OUT_DEP_FILE = sys.argv[4]
 
 #nlp = spacy.load("es_core_news_md")
-#nlp = spacy.load("en_core_web_sm")
-nlp = spacy.load("fi_core_news_md")
+nlp = spacy.load("en_core_web_sm")
+#nlp = spacy.load("fi_core_news_md")
 
 def get_features(text):
     tokens = nlp(text)
