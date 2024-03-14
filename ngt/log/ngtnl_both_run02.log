@@ -1,0 +1,717 @@
+[2024-03-01 15:58:09,310 WARNING] Corpus corpus_1's weight should be given. We default it to 1 for you.
+[2024-03-01 15:58:09,310 INFO] Parsed 2 corpora from -data.
+[2024-03-01 15:58:09,310 INFO] Get special vocabs from Transforms: {'src': [], 'tgt': []}.
+[2024-03-01 15:58:09,326 INFO] Reading encoder embeddings from ngt_w2v.txt
+[2024-03-01 15:58:16,266 INFO] 	Found 629649 total vectors in file.
+[2024-03-01 15:58:16,266 INFO] Reading decoder embeddings from sonar-320.txt
+[2024-03-01 15:58:23,101 INFO] 	Found 626711 total vectors in file
+[2024-03-01 15:58:23,101 INFO] After filtering to vectors in vocab:
+[2024-03-01 15:58:23,102 INFO] 	* enc: 2817 match, 471 missing, (85.68%)
+[2024-03-01 15:58:23,104 INFO] 	* dec: 3993 match, 7223 missing, (35.60%)
+[2024-03-01 15:58:23,104 INFO] 
+Saving encoder embeddings as:
+	* enc: gt.enc_embeddings.pt
+[2024-03-01 15:58:24,019 INFO] 
+Saving decoder embeddings as:
+	* dec: gt.dec_embeddings.pt
+[2024-03-01 15:58:29,093 INFO] The first 10 tokens of the vocabs are:['<unk>', '<blank>', '<s>', '</s>', 'pt-1hand', 'po', 'pt-1hand:1', 'gebaren-a', 'po+pt', 'kunnen-a']
+[2024-03-01 15:58:29,093 INFO] The decoder start token is: <s>
+[2024-03-01 15:58:29,093 INFO] Building model...
+[2024-03-01 15:58:29,254 INFO] Switching model to float32 for amp/apex_amp
+[2024-03-01 15:58:29,254 INFO] Non quantized layer compute is fp32
+[2024-03-01 15:58:30,960 INFO] NMTModel(
+  (encoder): RNNEncoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(3288, 320, padding_idx=1)
+        )
+      )
+      (dropout): Dropout(p=0.3, inplace=False)
+    )
+    (rnn): LSTM(320, 500, num_layers=2, batch_first=True, dropout=0.3)
+  )
+  (decoder): InputFeedRNNDecoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(11216, 320, padding_idx=1)
+        )
+      )
+      (dropout): Dropout(p=0.3, inplace=False)
+    )
+    (dropout): Dropout(p=0.3, inplace=False)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0.3, inplace=False)
+      (layers): ModuleList(
+        (0): LSTMCell(820, 500)
+        (1): LSTMCell(500, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+    )
+  )
+  (generator): Linear(in_features=500, out_features=11216, bias=True)
+)
+[2024-03-01 15:58:30,961 INFO] encoder: 4700160
+[2024-03-01 15:58:30,961 INFO] decoder: 14606336
+[2024-03-01 15:58:30,961 INFO] * number of parameters: 19306496
+[2024-03-01 15:58:30,961 INFO] Trainable parameters = {'torch.float32': 19306496, 'torch.float16': 0, 'torch.uint8': 0, 'torch.int8': 0}
+[2024-03-01 15:58:30,961 INFO] Non trainable parameters = {'torch.float32': 0, 'torch.float16': 0, 'torch.uint8': 0, 'torch.int8': 0}
+[2024-03-01 15:58:30,961 INFO]  * src vocab size = 3288
+[2024-03-01 15:58:30,961 INFO]  * tgt vocab size = 11216
+[2024-03-01 15:58:30,962 INFO] Starting training on GPU: [0]
+[2024-03-01 15:58:30,962 INFO] Start training loop and validate every 200 steps...
+[2024-03-01 15:58:30,962 INFO] Scoring with: TransformPipe(InferFeatsTransform())
+[2024-03-01 15:58:36,580 INFO] Step 50/10000; acc: 5.8; ppl: 19641.0; xent: 9.9; lr: 1.00000; sents:    2368; bsz:  295/ 504/47; 2623/4488 tok/s;      6 sec;
+[2024-03-01 15:58:39,014 INFO] Step 100/10000; acc: 5.7; ppl: 6230.3; xent: 8.7; lr: 1.00000; sents:    2264; bsz:  281/ 485/45; 5777/9956 tok/s;      8 sec;
+[2024-03-01 15:58:41,438 INFO] Step 150/10000; acc: 6.7; ppl: 1478.4; xent: 7.3; lr: 1.00000; sents:    2360; bsz:  292/ 505/47; 6022/10430 tok/s;     10 sec;
+[2024-03-01 15:58:43,906 INFO] Step 200/10000; acc: 7.9; ppl: 900.1; xent: 6.8; lr: 1.00000; sents:    2364; bsz:  300/ 514/47; 6073/10416 tok/s;     13 sec;
+[2024-03-01 15:58:47,823 INFO] valid stats calculation
+                           took: 3.9164183139801025 s.
+[2024-03-01 15:58:47,823 INFO] Train perplexity: 3527.09
+[2024-03-01 15:58:47,823 INFO] Train accuracy: 6.54425
+[2024-03-01 15:58:47,823 INFO] Sentences processed: 9356
+[2024-03-01 15:58:47,823 INFO] Average bsz:  292/ 502/47
+[2024-03-01 15:58:47,824 INFO] Validation perplexity: 1157.8
+[2024-03-01 15:58:47,824 INFO] Validation accuracy: 3.23876
+[2024-03-01 15:58:47,824 INFO] Saving checkpoint gt/gt_02_step_200.pt
+[2024-03-01 15:58:50,393 INFO] Step 250/10000; acc: 9.4; ppl: 685.9; xent: 6.5; lr: 1.00000; sents:    2276; bsz:  274/ 486/46; 2115/3743 tok/s;     19 sec;
+[2024-03-01 15:58:52,673 INFO] Step 300/10000; acc: 10.4; ppl: 566.5; xent: 6.3; lr: 1.00000; sents:    2367; bsz:  297/ 506/47; 6508/11092 tok/s;     22 sec;
+[2024-03-01 15:58:55,136 INFO] Step 350/10000; acc: 11.4; ppl: 484.4; xent: 6.2; lr: 1.00000; sents:    2263; bsz:  293/ 498/45; 5952/10114 tok/s;     24 sec;
+[2024-03-01 15:58:57,630 INFO] Step 400/10000; acc: 13.1; ppl: 406.5; xent: 6.0; lr: 1.00000; sents:    2358; bsz:  293/ 509/47; 5866/10205 tok/s;     27 sec;
+[2024-03-01 15:59:01,633 INFO] valid stats calculation
+                           took: 4.002790451049805 s.
+[2024-03-01 15:59:01,634 INFO] Train perplexity: 1363.39
+[2024-03-01 15:59:01,634 INFO] Train accuracy: 8.8255
+[2024-03-01 15:59:01,634 INFO] Sentences processed: 18620
+[2024-03-01 15:59:01,634 INFO] Average bsz:  291/ 501/47
+[2024-03-01 15:59:01,634 INFO] Validation perplexity: 422.803
+[2024-03-01 15:59:01,634 INFO] Validation accuracy: 10.413
+[2024-03-01 15:59:01,635 INFO] Saving checkpoint gt/gt_02_step_400.pt
+[2024-03-01 15:59:04,214 INFO] Step 450/10000; acc: 14.6; ppl: 341.7; xent: 5.8; lr: 1.00000; sents:    2368; bsz:  284/ 496/47; 2160/3765 tok/s;     33 sec;
+[2024-03-01 15:59:06,650 INFO] Step 500/10000; acc: 14.5; ppl: 329.3; xent: 5.8; lr: 1.00000; sents:    2378; bsz:  284/ 506/48; 5832/10378 tok/s;     36 sec;
+[2024-03-01 15:59:08,982 INFO] Step 550/10000; acc: 15.0; ppl: 304.2; xent: 5.7; lr: 1.00000; sents:    2263; bsz:  301/ 501/45; 6464/10737 tok/s;     38 sec;
+[2024-03-01 15:59:11,468 INFO] Step 600/10000; acc: 15.5; ppl: 284.1; xent: 5.6; lr: 1.00000; sents:    2370; bsz:  290/ 508/47; 5831/10221 tok/s;     41 sec;
+[2024-03-01 15:59:15,472 INFO] valid stats calculation
+                           took: 4.003238201141357 s.
+[2024-03-01 15:59:15,472 INFO] Train perplexity: 834.694
+[2024-03-01 15:59:15,472 INFO] Train accuracy: 10.8488
+[2024-03-01 15:59:15,472 INFO] Sentences processed: 27999
+[2024-03-01 15:59:15,472 INFO] Average bsz:  290/ 501/47
+[2024-03-01 15:59:15,472 INFO] Validation perplexity: 273.181
+[2024-03-01 15:59:15,472 INFO] Validation accuracy: 16.3005
+[2024-03-01 15:59:15,473 INFO] Saving checkpoint gt/gt_02_step_600.pt
+[2024-03-01 15:59:18,012 INFO] Step 650/10000; acc: 16.4; ppl: 257.1; xent: 5.5; lr: 1.00000; sents:    2364; bsz:  279/ 489/47; 2135/3740 tok/s;     47 sec;
+[2024-03-01 15:59:20,434 INFO] Step 700/10000; acc: 16.2; ppl: 250.0; xent: 5.5; lr: 1.00000; sents:    2259; bsz:  286/ 490/45; 5909/10108 tok/s;     49 sec;
+[2024-03-01 15:59:22,891 INFO] Step 750/10000; acc: 16.4; ppl: 235.7; xent: 5.5; lr: 1.00000; sents:    2380; bsz:  298/ 523/48; 6066/10652 tok/s;     52 sec;
+[2024-03-01 15:59:25,096 INFO] Step 800/10000; acc: 17.6; ppl: 208.6; xent: 5.3; lr: 1.00000; sents:    2366; bsz:  284/ 488/47; 6450/11072 tok/s;     54 sec;
+[2024-03-01 15:59:29,054 INFO] valid stats calculation
+                           took: 3.9574553966522217 s.
+[2024-03-01 15:59:29,054 INFO] Train perplexity: 610.454
+[2024-03-01 15:59:29,054 INFO] Train accuracy: 12.2856
+[2024-03-01 15:59:29,054 INFO] Sentences processed: 37368
+[2024-03-01 15:59:29,054 INFO] Average bsz:  290/ 500/47
+[2024-03-01 15:59:29,054 INFO] Validation perplexity: 243.982
+[2024-03-01 15:59:29,054 INFO] Validation accuracy: 16.9721
+[2024-03-01 15:59:29,055 INFO] Saving checkpoint gt/gt_02_step_800.pt
+[2024-03-01 15:59:31,852 INFO] Step 850/10000; acc: 17.0; ppl: 220.6; xent: 5.4; lr: 1.00000; sents:    2267; bsz:  308/ 519/45; 2281/3840 tok/s;     61 sec;
+[2024-03-01 15:59:34,168 INFO] Step 900/10000; acc: 18.2; ppl: 189.2; xent: 5.2; lr: 1.00000; sents:    2367; bsz:  277/ 490/47; 5986/10573 tok/s;     63 sec;
+[2024-03-01 15:59:36,661 INFO] Step 950/10000; acc: 18.2; ppl: 186.7; xent: 5.2; lr: 1.00000; sents:    2263; bsz:  291/ 496/45; 5831/9942 tok/s;     66 sec;
+[2024-03-01 15:59:39,020 INFO] Step 1000/10000; acc: 18.6; ppl: 177.5; xent: 5.2; lr: 1.00000; sents:    2483; bsz:  291/ 520/50; 6174/11027 tok/s;     68 sec;
+[2024-03-01 15:59:42,972 INFO] valid stats calculation
+                           took: 3.950824737548828 s.
+[2024-03-01 15:59:42,972 INFO] Train perplexity: 483.852
+[2024-03-01 15:59:42,972 INFO] Train accuracy: 13.4381
+[2024-03-01 15:59:42,972 INFO] Sentences processed: 46748
+[2024-03-01 15:59:42,972 INFO] Average bsz:  290/ 502/47
+[2024-03-01 15:59:42,972 INFO] Validation perplexity: 187.651
+[2024-03-01 15:59:42,972 INFO] Validation accuracy: 19.6837
+[2024-03-01 15:59:42,973 INFO] Saving checkpoint gt/gt_02_step_1000.pt
+[2024-03-01 15:59:45,400 INFO] Step 1050/10000; acc: 18.6; ppl: 174.2; xent: 5.2; lr: 1.00000; sents:    2266; bsz:  289/ 490/45; 2263/3843 tok/s;     74 sec;
+[2024-03-01 15:59:47,960 INFO] Step 1100/10000; acc: 18.8; ppl: 169.7; xent: 5.1; lr: 1.00000; sents:    2368; bsz:  307/ 522/47; 5991/10195 tok/s;     77 sec;
+[2024-03-01 15:59:50,337 INFO] Step 1150/10000; acc: 19.7; ppl: 153.5; xent: 5.0; lr: 1.00000; sents:    2261; bsz:  264/ 468/45; 5549/9847 tok/s;     79 sec;
+[2024-03-01 15:59:52,801 INFO] Step 1200/10000; acc: 19.7; ppl: 152.1; xent: 5.0; lr: 1.00000; sents:    2363; bsz:  299/ 513/47; 6064/10400 tok/s;     82 sec;
+[2024-03-01 15:59:56,795 INFO] valid stats calculation
+                           took: 3.99314284324646 s.
+[2024-03-01 15:59:56,795 INFO] Train perplexity: 403.689
+[2024-03-01 15:59:56,795 INFO] Train accuracy: 14.3908
+[2024-03-01 15:59:56,795 INFO] Sentences processed: 56006
+[2024-03-01 15:59:56,795 INFO] Average bsz:  290/ 501/47
+[2024-03-01 15:59:56,795 INFO] Validation perplexity: 181.952
+[2024-03-01 15:59:56,795 INFO] Validation accuracy: 18.6668
+[2024-03-01 15:59:56,796 INFO] Saving checkpoint gt/gt_02_step_1200.pt
+[2024-03-01 15:59:59,362 INFO] Step 1250/10000; acc: 19.4; ppl: 149.7; xent: 5.0; lr: 1.00000; sents:    2275; bsz:  287/ 498/46; 2184/3794 tok/s;     88 sec;
+[2024-03-01 16:00:01,585 INFO] Step 1300/10000; acc: 20.5; ppl: 137.1; xent: 4.9; lr: 1.00000; sents:    2467; bsz:  298/ 516/49; 6701/11596 tok/s;     91 sec;
+[2024-03-01 16:00:04,154 INFO] Step 1350/10000; acc: 19.9; ppl: 138.6; xent: 4.9; lr: 1.00000; sents:    2251; bsz:  291/ 495/45; 5657/9636 tok/s;     93 sec;
+[2024-03-01 16:00:06,503 INFO] Step 1400/10000; acc: 20.9; ppl: 128.2; xent: 4.9; lr: 1.00000; sents:    2363; bsz:  277/ 489/47; 5896/10419 tok/s;     96 sec;
+[2024-03-01 16:00:10,448 INFO] valid stats calculation
+                           took: 3.9448163509368896 s.
+[2024-03-01 16:00:10,448 INFO] Train perplexity: 346.528
+[2024-03-01 16:00:10,449 INFO] Train accuracy: 15.2148
+[2024-03-01 16:00:10,449 INFO] Sentences processed: 65362
+[2024-03-01 16:00:10,449 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:00:10,449 INFO] Validation perplexity: 164.662
+[2024-03-01 16:00:10,449 INFO] Validation accuracy: 19.8971
+[2024-03-01 16:00:10,449 INFO] Saving checkpoint gt/gt_02_step_1400.pt
+[2024-03-01 16:00:13,163 INFO] Step 1450/10000; acc: 20.4; ppl: 130.8; xent: 4.9; lr: 1.00000; sents:    2367; bsz:  302/ 520/47; 2265/3902 tok/s;    102 sec;
+[2024-03-01 16:00:15,537 INFO] Step 1500/10000; acc: 20.6; ppl: 125.2; xent: 4.8; lr: 1.00000; sents:    2281; bsz:  284/ 491/46; 5981/10342 tok/s;    105 sec;
+[2024-03-01 16:00:17,853 INFO] Step 1550/10000; acc: 21.6; ppl: 115.1; xent: 4.7; lr: 1.00000; sents:    2361; bsz:  286/ 496/47; 6184/10718 tok/s;    107 sec;
+[2024-03-01 16:00:20,388 INFO] Step 1600/10000; acc: 20.9; ppl: 119.2; xent: 4.8; lr: 1.00000; sents:    2265; bsz:  295/ 500/45; 5823/9861 tok/s;    109 sec;
+[2024-03-01 16:00:24,343 INFO] valid stats calculation
+                           took: 3.954608678817749 s.
+[2024-03-01 16:00:24,343 INFO] Train perplexity: 304.222
+[2024-03-01 16:00:24,343 INFO] Train accuracy: 15.9216
+[2024-03-01 16:00:24,343 INFO] Sentences processed: 74636
+[2024-03-01 16:00:24,343 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:00:24,343 INFO] Validation perplexity: 157.561
+[2024-03-01 16:00:24,343 INFO] Validation accuracy: 20.123
+[2024-03-01 16:00:24,344 INFO] Saving checkpoint gt/gt_02_step_1600.pt
+[2024-03-01 16:00:26,876 INFO] Step 1650/10000; acc: 21.2; ppl: 112.0; xent: 4.7; lr: 1.00000; sents:    2365; bsz:  288/ 503/47; 2219/3873 tok/s;    116 sec;
+[2024-03-01 16:00:29,391 INFO] Step 1700/10000; acc: 21.5; ppl: 111.6; xent: 4.7; lr: 1.00000; sents:    2367; bsz:  299/ 517/47; 5951/10283 tok/s;    118 sec;
+[2024-03-01 16:00:31,699 INFO] Step 1750/10000; acc: 21.5; ppl: 107.5; xent: 4.7; lr: 1.00000; sents:    2277; bsz:  285/ 492/46; 6174/10654 tok/s;    121 sec;
+[2024-03-01 16:00:34,014 INFO] Step 1800/10000; acc: 22.4; ppl:  99.8; xent: 4.6; lr: 1.00000; sents:    2363; bsz:  291/ 504/47; 6280/10880 tok/s;    123 sec;
+[2024-03-01 16:00:37,963 INFO] valid stats calculation
+                           took: 3.947986602783203 s.
+[2024-03-01 16:00:37,964 INFO] Train perplexity: 270.9
+[2024-03-01 16:00:37,964 INFO] Train accuracy: 16.5612
+[2024-03-01 16:00:37,964 INFO] Sentences processed: 84008
+[2024-03-01 16:00:37,964 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:00:37,964 INFO] Validation perplexity: 150.263
+[2024-03-01 16:00:37,964 INFO] Validation accuracy: 20.2925
+[2024-03-01 16:00:37,965 INFO] Saving checkpoint gt/gt_02_step_1800.pt
+[2024-03-01 16:00:40,607 INFO] Step 1850/10000; acc: 22.2; ppl: 100.0; xent: 4.6; lr: 1.00000; sents:    2373; bsz:  290/ 500/47; 2196/3790 tok/s;    130 sec;
+[2024-03-01 16:00:43,051 INFO] Step 1900/10000; acc: 21.5; ppl:  99.6; xent: 4.6; lr: 1.00000; sents:    2264; bsz:  294/ 502/45; 6014/10276 tok/s;    132 sec;
+[2024-03-01 16:00:45,485 INFO] Step 1950/10000; acc: 22.8; ppl:  92.4; xent: 4.5; lr: 1.00000; sents:    2373; bsz:  283/ 500/47; 5817/10263 tok/s;    135 sec;
+[2024-03-01 16:00:47,751 INFO] Step 2000/10000; acc: 22.7; ppl:  93.1; xent: 4.5; lr: 1.00000; sents:    2380; bsz:  294/ 510/48; 6481/11253 tok/s;    137 sec;
+[2024-03-01 16:00:51,713 INFO] valid stats calculation
+                           took: 3.9616453647613525 s.
+[2024-03-01 16:00:51,713 INFO] Train perplexity: 244.187
+[2024-03-01 16:00:51,713 INFO] Train accuracy: 17.1373
+[2024-03-01 16:00:51,713 INFO] Sentences processed: 93398
+[2024-03-01 16:00:51,713 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:00:51,713 INFO] Validation perplexity: 134.951
+[2024-03-01 16:00:51,713 INFO] Validation accuracy: 21.9997
+[2024-03-01 16:00:51,714 INFO] Saving checkpoint gt/gt_02_step_2000.pt
+[2024-03-01 16:00:54,268 INFO] Step 2050/10000; acc: 23.0; ppl:  88.0; xent: 4.5; lr: 1.00000; sents:    2253; bsz:  296/ 500/45; 2270/3833 tok/s;    143 sec;
+[2024-03-01 16:00:56,683 INFO] Step 2100/10000; acc: 23.3; ppl:  85.3; xent: 4.4; lr: 1.00000; sents:    2376; bsz:  288/ 499/48; 5961/10343 tok/s;    146 sec;
+[2024-03-01 16:00:59,107 INFO] Step 2150/10000; acc: 23.2; ppl:  83.1; xent: 4.4; lr: 1.00000; sents:    2261; bsz:  282/ 487/45; 5816/10050 tok/s;    148 sec;
+[2024-03-01 16:01:01,516 INFO] Step 2200/10000; acc: 23.5; ppl:  80.5; xent: 4.4; lr: 1.00000; sents:    2371; bsz:  284/ 500/47; 5901/10391 tok/s;    151 sec;
+[2024-03-01 16:01:05,490 INFO] valid stats calculation
+                           took: 3.974067211151123 s.
+[2024-03-01 16:01:05,491 INFO] Train perplexity: 221.835
+[2024-03-01 16:01:05,491 INFO] Train accuracy: 17.6857
+[2024-03-01 16:01:05,491 INFO] Sentences processed: 102659
+[2024-03-01 16:01:05,491 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:01:05,491 INFO] Validation perplexity: 140.355
+[2024-03-01 16:01:05,491 INFO] Validation accuracy: 22.1441
+[2024-03-01 16:01:05,492 INFO] Saving checkpoint gt/gt_02_step_2200.pt
+[2024-03-01 16:01:07,936 INFO] Step 2250/10000; acc: 23.3; ppl:  79.5; xent: 4.4; lr: 1.00000; sents:    2375; bsz:  291/ 509/48; 2269/3961 tok/s;    157 sec;
+[2024-03-01 16:01:10,258 INFO] Step 2300/10000; acc: 24.0; ppl:  77.0; xent: 4.3; lr: 1.00000; sents:    2355; bsz:  306/ 517/47; 6594/11131 tok/s;    159 sec;
+[2024-03-01 16:01:12,732 INFO] Step 2350/10000; acc: 23.7; ppl:  74.6; xent: 4.3; lr: 1.00000; sents:    2268; bsz:  289/ 493/45; 5847/9964 tok/s;    162 sec;
+[2024-03-01 16:01:15,118 INFO] Step 2400/10000; acc: 24.5; ppl:  70.4; xent: 4.3; lr: 1.00000; sents:    2357; bsz:  281/ 494/47; 5892/10349 tok/s;    164 sec;
+[2024-03-01 16:01:19,096 INFO] valid stats calculation
+                           took: 3.977379083633423 s.
+[2024-03-01 16:01:19,096 INFO] Train perplexity: 202.678
+[2024-03-01 16:01:19,096 INFO] Train accuracy: 18.2053
+[2024-03-01 16:01:19,096 INFO] Sentences processed: 112014
+[2024-03-01 16:01:19,096 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:01:19,096 INFO] Validation perplexity: 134.671
+[2024-03-01 16:01:19,097 INFO] Validation accuracy: 21.893
+[2024-03-01 16:01:19,097 INFO] Saving checkpoint gt/gt_02_step_2400.pt
+[2024-03-01 16:01:21,753 INFO] Step 2450/10000; acc: 24.5; ppl:  70.0; xent: 4.2; lr: 1.00000; sents:    2267; bsz:  286/ 494/45; 2154/3720 tok/s;    171 sec;
+[2024-03-01 16:01:24,127 INFO] Step 2500/10000; acc: 24.2; ppl:  69.8; xent: 4.2; lr: 1.00000; sents:    2378; bsz:  295/ 514/48; 6207/10828 tok/s;    173 sec;
+[2024-03-01 16:01:26,438 INFO] Step 2550/10000; acc: 25.7; ppl:  64.4; xent: 4.2; lr: 1.00000; sents:    2364; bsz:  291/ 500/47; 6291/10824 tok/s;    175 sec;
+[2024-03-01 16:01:28,875 INFO] Step 2600/10000; acc: 25.3; ppl:  64.3; xent: 4.2; lr: 1.00000; sents:    2261; bsz:  291/ 492/45; 5965/10099 tok/s;    178 sec;
+[2024-03-01 16:01:32,863 INFO] valid stats calculation
+                           took: 3.987555742263794 s.
+[2024-03-01 16:01:32,863 INFO] Train perplexity: 186.182
+[2024-03-01 16:01:32,863 INFO] Train accuracy: 18.7193
+[2024-03-01 16:01:32,863 INFO] Sentences processed: 121284
+[2024-03-01 16:01:32,863 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:01:32,863 INFO] Validation perplexity: 128.917
+[2024-03-01 16:01:32,863 INFO] Validation accuracy: 22.8094
+[2024-03-01 16:01:32,864 INFO] Saving checkpoint gt/gt_02_step_2600.pt
+[2024-03-01 16:01:35,447 INFO] Step 2650/10000; acc: 25.6; ppl:  60.4; xent: 4.1; lr: 1.00000; sents:    2366; bsz:  280/ 493/47; 2127/3752 tok/s;    184 sec;
+[2024-03-01 16:01:37,918 INFO] Step 2700/10000; acc: 25.4; ppl:  61.5; xent: 4.1; lr: 1.00000; sents:    2370; bsz:  295/ 512/47; 5968/10369 tok/s;    187 sec;
+[2024-03-01 16:01:40,161 INFO] Step 2750/10000; acc: 25.8; ppl:  57.5; xent: 4.1; lr: 1.00000; sents:    2378; bsz:  282/ 497/48; 6278/11089 tok/s;    189 sec;
+[2024-03-01 16:01:42,511 INFO] Step 2800/10000; acc: 25.9; ppl:  57.0; xent: 4.0; lr: 1.00000; sents:    2257; bsz:  294/ 496/45; 6251/10562 tok/s;    192 sec;
+[2024-03-01 16:01:46,475 INFO] valid stats calculation
+                           took: 3.9635136127471924 s.
+[2024-03-01 16:01:46,475 INFO] Train perplexity: 171.555
+[2024-03-01 16:01:46,475 INFO] Train accuracy: 19.2147
+[2024-03-01 16:01:46,475 INFO] Sentences processed: 130655
+[2024-03-01 16:01:46,475 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:01:46,475 INFO] Validation perplexity: 124.167
+[2024-03-01 16:01:46,475 INFO] Validation accuracy: 23.0354
+[2024-03-01 16:01:46,476 INFO] Saving checkpoint gt/gt_02_step_2800.pt
+[2024-03-01 16:01:49,071 INFO] Step 2850/10000; acc: 26.3; ppl:  55.6; xent: 4.0; lr: 1.00000; sents:    2370; bsz:  302/ 514/47; 2300/3920 tok/s;    198 sec;
+[2024-03-01 16:01:51,569 INFO] Step 2900/10000; acc: 26.4; ppl:  53.9; xent: 4.0; lr: 1.00000; sents:    2367; bsz:  295/ 514/47; 5896/10287 tok/s;    201 sec;
+[2024-03-01 16:01:53,944 INFO] Step 2950/10000; acc: 27.1; ppl:  50.6; xent: 3.9; lr: 1.00000; sents:    2374; bsz:  282/ 495/47; 5940/10429 tok/s;    203 sec;
+[2024-03-01 16:01:56,219 INFO] Step 3000/10000; acc: 27.0; ppl:  49.6; xent: 3.9; lr: 1.00000; sents:    2274; bsz:  284/ 492/45; 6243/10811 tok/s;    205 sec;
+[2024-03-01 16:02:00,182 INFO] valid stats calculation
+                           took: 3.962010383605957 s.
+[2024-03-01 16:02:00,182 INFO] Train perplexity: 158.443
+[2024-03-01 16:02:00,182 INFO] Train accuracy: 19.7164
+[2024-03-01 16:02:00,182 INFO] Sentences processed: 140040
+[2024-03-01 16:02:00,182 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:02:00,182 INFO] Validation perplexity: 125.223
+[2024-03-01 16:02:00,182 INFO] Validation accuracy: 23.5689
+[2024-03-01 16:02:00,183 INFO] Saving checkpoint gt/gt_02_step_3000.pt
+[2024-03-01 16:02:02,656 INFO] Step 3050/10000; acc: 27.7; ppl:  46.7; xent: 3.8; lr: 1.00000; sents:    2362; bsz:  289/ 498/47; 2243/3864 tok/s;    212 sec;
+[2024-03-01 16:02:05,154 INFO] Step 3100/10000; acc: 27.3; ppl:  48.1; xent: 3.9; lr: 1.00000; sents:    2266; bsz:  305/ 513/45; 6108/10279 tok/s;    214 sec;
+[2024-03-01 16:02:07,642 INFO] Step 3150/10000; acc: 28.2; ppl:  44.1; xent: 3.8; lr: 1.00000; sents:    2372; bsz:  282/ 496/47; 5670/9975 tok/s;    217 sec;
+[2024-03-01 16:02:10,101 INFO] Step 3200/10000; acc: 28.0; ppl:  43.7; xent: 3.8; lr: 1.00000; sents:    2268; bsz:  285/ 491/45; 5795/9982 tok/s;    219 sec;
+[2024-03-01 16:02:14,062 INFO] valid stats calculation
+                           took: 3.960416078567505 s.
+[2024-03-01 16:02:14,062 INFO] Train perplexity: 146.622
+[2024-03-01 16:02:14,062 INFO] Train accuracy: 20.2199
+[2024-03-01 16:02:14,062 INFO] Sentences processed: 149308
+[2024-03-01 16:02:14,062 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:02:14,062 INFO] Validation perplexity: 127.153
+[2024-03-01 16:02:14,062 INFO] Validation accuracy: 23.6191
+[2024-03-01 16:02:14,063 INFO] Saving checkpoint gt/gt_02_step_3200.pt
+[2024-03-01 16:02:16,504 INFO] Step 3250/10000; acc: 28.9; ppl:  41.6; xent: 3.7; lr: 1.00000; sents:    2480; bsz:  290/ 517/50; 2266/4034 tok/s;    226 sec;
+[2024-03-01 16:02:18,859 INFO] Step 3300/10000; acc: 28.6; ppl:  41.6; xent: 3.7; lr: 1.00000; sents:    2253; bsz:  294/ 495/45; 6253/10510 tok/s;    228 sec;
+[2024-03-01 16:02:21,258 INFO] Step 3350/10000; acc: 29.1; ppl:  40.2; xent: 3.7; lr: 1.00000; sents:    2369; bsz:  300/ 515/47; 6250/10733 tok/s;    230 sec;
+[2024-03-01 16:02:23,726 INFO] Step 3400/10000; acc: 29.7; ppl:  37.6; xent: 3.6; lr: 1.00000; sents:    2363; bsz:  280/ 495/47; 5680/10020 tok/s;    233 sec;
+[2024-03-01 16:02:27,695 INFO] valid stats calculation
+                           took: 3.968522071838379 s.
+[2024-03-01 16:02:27,696 INFO] Train perplexity: 135.799
+[2024-03-01 16:02:27,696 INFO] Train accuracy: 20.7441
+[2024-03-01 16:02:27,696 INFO] Sentences processed: 158773
+[2024-03-01 16:02:27,696 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:02:27,696 INFO] Validation perplexity: 123.573
+[2024-03-01 16:02:27,696 INFO] Validation accuracy: 24.4853
+[2024-03-01 16:02:27,697 INFO] Saving checkpoint gt/gt_02_step_3400.pt
+[2024-03-01 16:02:30,325 INFO] Step 3450/10000; acc: 29.2; ppl:  37.8; xent: 3.6; lr: 1.00000; sents:    2266; bsz:  287/ 493/45; 2174/3737 tok/s;    239 sec;
+[2024-03-01 16:02:32,685 INFO] Step 3500/10000; acc: 30.4; ppl:  35.3; xent: 3.6; lr: 1.00000; sents:    2271; bsz:  286/ 492/45; 6055/10418 tok/s;    242 sec;
+[2024-03-01 16:02:35,106 INFO] Step 3550/10000; acc: 29.9; ppl:  36.8; xent: 3.6; lr: 1.00000; sents:    2364; bsz:  306/ 519/47; 6322/10717 tok/s;    244 sec;
+[2024-03-01 16:02:37,444 INFO] Step 3600/10000; acc: 30.9; ppl:  33.2; xent: 3.5; lr: 1.00000; sents:    2362; bsz:  282/ 494/47; 6026/10572 tok/s;    246 sec;
+[2024-03-01 16:02:41,380 INFO] valid stats calculation
+                           took: 3.935220241546631 s.
+[2024-03-01 16:02:41,381 INFO] Train perplexity: 126.125
+[2024-03-01 16:02:41,381 INFO] Train accuracy: 21.2615
+[2024-03-01 16:02:41,381 INFO] Sentences processed: 168036
+[2024-03-01 16:02:41,381 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:02:41,381 INFO] Validation perplexity: 129.073
+[2024-03-01 16:02:41,381 INFO] Validation accuracy: 24.41
+[2024-03-01 16:02:41,382 INFO] Saving checkpoint gt/gt_02_step_3600.pt
+[2024-03-01 16:02:44,039 INFO] Step 3650/10000; acc: 31.1; ppl:  32.3; xent: 3.5; lr: 1.00000; sents:    2364; bsz:  281/ 495/47; 2129/3753 tok/s;    253 sec;
+[2024-03-01 16:02:46,467 INFO] Step 3700/10000; acc: 30.4; ppl:  33.1; xent: 3.5; lr: 1.00000; sents:    2273; bsz:  289/ 497/45; 5948/10232 tok/s;    256 sec;
+[2024-03-01 16:02:48,761 INFO] Step 3750/10000; acc: 31.9; ppl:  30.7; xent: 3.4; lr: 1.00000; sents:    2377; bsz:  295/ 510/48; 6440/11127 tok/s;    258 sec;
+[2024-03-01 16:02:51,072 INFO] Step 3800/10000; acc: 31.8; ppl:  30.6; xent: 3.4; lr: 1.00000; sents:    2360; bsz:  288/ 497/47; 6233/10751 tok/s;    260 sec;
+[2024-03-01 16:02:55,095 INFO] valid stats calculation
+                           took: 4.022859811782837 s.
+[2024-03-01 16:02:55,095 INFO] Train perplexity: 117.297
+[2024-03-01 16:02:55,095 INFO] Train accuracy: 21.7884
+[2024-03-01 16:02:55,095 INFO] Sentences processed: 177410
+[2024-03-01 16:02:55,095 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:02:55,095 INFO] Validation perplexity: 124.13
+[2024-03-01 16:02:55,095 INFO] Validation accuracy: 24.5104
+[2024-03-01 16:02:55,096 INFO] Saving checkpoint gt/gt_02_step_3800.pt
+[2024-03-01 16:02:57,671 INFO] Step 3850/10000; acc: 31.5; ppl:  30.1; xent: 3.4; lr: 1.00000; sents:    2369; bsz:  297/ 512/47; 2247/3880 tok/s;    267 sec;
+[2024-03-01 16:03:00,196 INFO] Step 3900/10000; acc: 32.1; ppl:  28.8; xent: 3.4; lr: 1.00000; sents:    2263; bsz:  287/ 496/45; 5684/9821 tok/s;    269 sec;
+[2024-03-01 16:03:02,601 INFO] Step 3950/10000; acc: 32.6; ppl:  27.7; xent: 3.3; lr: 1.00000; sents:    2374; bsz:  285/ 499/47; 5925/10378 tok/s;    272 sec;
+[2024-03-01 16:03:04,925 INFO] Step 4000/10000; acc: 32.8; ppl:  26.5; xent: 3.3; lr: 1.00000; sents:    2277; bsz:  286/ 490/46; 6148/10551 tok/s;    274 sec;
+[2024-03-01 16:03:08,871 INFO] valid stats calculation
+                           took: 3.9451982975006104 s.
+[2024-03-01 16:03:08,871 INFO] Train perplexity: 109.268
+[2024-03-01 16:03:08,871 INFO] Train accuracy: 22.3097
+[2024-03-01 16:03:08,871 INFO] Sentences processed: 186693
+[2024-03-01 16:03:08,871 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:03:08,871 INFO] Validation perplexity: 128.849
+[2024-03-01 16:03:08,871 INFO] Validation accuracy: 24.4163
+[2024-03-01 16:03:08,872 INFO] Saving checkpoint gt/gt_02_step_4000.pt
+[2024-03-01 16:03:11,394 INFO] Step 4050/10000; acc: 32.8; ppl:  27.2; xent: 3.3; lr: 1.00000; sents:    2359; bsz:  303/ 517/47; 2343/3997 tok/s;    280 sec;
+[2024-03-01 16:03:13,729 INFO] Step 4100/10000; acc: 33.8; ppl:  24.9; xent: 3.2; lr: 1.00000; sents:    2367; bsz:  281/ 492/47; 6012/10545 tok/s;    283 sec;
+[2024-03-01 16:03:16,250 INFO] Step 4150/10000; acc: 33.4; ppl:  25.6; xent: 3.2; lr: 1.00000; sents:    2261; bsz:  286/ 494/45; 5668/9792 tok/s;    285 sec;
+[2024-03-01 16:03:18,645 INFO] Step 4200/10000; acc: 33.3; ppl:  25.4; xent: 3.2; lr: 1.00000; sents:    2381; bsz:  303/ 522/48; 6319/10900 tok/s;    288 sec;
+[2024-03-01 16:03:22,549 INFO] valid stats calculation
+                           took: 3.90325665473938 s.
+[2024-03-01 16:03:22,550 INFO] Train perplexity: 101.936
+[2024-03-01 16:03:22,550 INFO] Train accuracy: 22.8396
+[2024-03-01 16:03:22,550 INFO] Sentences processed: 196061
+[2024-03-01 16:03:22,550 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:03:22,550 INFO] Validation perplexity: 125.851
+[2024-03-01 16:03:22,550 INFO] Validation accuracy: 24.7489
+[2024-03-01 16:03:22,551 INFO] Saving checkpoint gt/gt_02_step_4200.pt
+[2024-03-01 16:03:24,929 INFO] Step 4250/10000; acc: 34.8; ppl:  22.7; xent: 3.1; lr: 1.00000; sents:    2375; bsz:  279/ 491/48; 2221/3910 tok/s;    294 sec;
+[2024-03-01 16:03:27,349 INFO] Step 4300/10000; acc: 34.1; ppl:  23.8; xent: 3.2; lr: 1.00000; sents:    2358; bsz:  303/ 516/47; 6267/10660 tok/s;    296 sec;
+[2024-03-01 16:03:29,739 INFO] Step 4350/10000; acc: 35.1; ppl:  22.2; xent: 3.1; lr: 1.00000; sents:    2264; bsz:  284/ 486/45; 5942/10178 tok/s;    299 sec;
+[2024-03-01 16:03:32,180 INFO] Step 4400/10000; acc: 35.2; ppl:  22.2; xent: 3.1; lr: 1.00000; sents:    2362; bsz:  283/ 498/47; 5801/10210 tok/s;    301 sec;
+[2024-03-01 16:03:36,147 INFO] valid stats calculation
+                           took: 3.966365098953247 s.
+[2024-03-01 16:03:36,147 INFO] Train perplexity: 95.2569
+[2024-03-01 16:03:36,147 INFO] Train accuracy: 23.3791
+[2024-03-01 16:03:36,147 INFO] Sentences processed: 205420
+[2024-03-01 16:03:36,147 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:03:36,147 INFO] Validation perplexity: 132.734
+[2024-03-01 16:03:36,147 INFO] Validation accuracy: 25.1506
+[2024-03-01 16:03:36,148 INFO] Saving checkpoint gt/gt_02_step_4400.pt
+[2024-03-01 16:03:38,819 INFO] Step 4450/10000; acc: 34.6; ppl:  22.7; xent: 3.1; lr: 1.00000; sents:    2379; bsz:  300/ 522/48; 2262/3930 tok/s;    308 sec;
+[2024-03-01 16:03:41,132 INFO] Step 4500/10000; acc: 36.0; ppl:  20.7; xent: 3.0; lr: 1.00000; sents:    2265; bsz:  284/ 485/45; 6135/10481 tok/s;    310 sec;
+[2024-03-01 16:03:43,519 INFO] Step 4550/10000; acc: 35.7; ppl:  20.8; xent: 3.0; lr: 1.00000; sents:    2361; bsz:  291/ 502/47; 6097/10525 tok/s;    313 sec;
+[2024-03-01 16:03:46,045 INFO] Step 4600/10000; acc: 35.5; ppl:  20.5; xent: 3.0; lr: 1.00000; sents:    2253; bsz:  296/ 501/45; 5864/9927 tok/s;    315 sec;
+[2024-03-01 16:03:50,018 INFO] valid stats calculation
+                           took: 3.9726829528808594 s.
+[2024-03-01 16:03:50,018 INFO] Train perplexity: 89.2132
+[2024-03-01 16:03:50,018 INFO] Train accuracy: 23.9051
+[2024-03-01 16:03:50,018 INFO] Sentences processed: 214678
+[2024-03-01 16:03:50,018 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:03:50,018 INFO] Validation perplexity: 139.272
+[2024-03-01 16:03:50,018 INFO] Validation accuracy: 24.7364
+[2024-03-01 16:03:50,019 INFO] Saving checkpoint gt/gt_02_step_4600.pt
+[2024-03-01 16:03:52,625 INFO] Step 4650/10000; acc: 36.4; ppl:  19.7; xent: 3.0; lr: 1.00000; sents:    2368; bsz:  285/ 501/47; 2164/3806 tok/s;    322 sec;
+[2024-03-01 16:03:54,978 INFO] Step 4700/10000; acc: 36.9; ppl:  19.2; xent: 3.0; lr: 1.00000; sents:    2378; bsz:  286/ 503/48; 6078/10683 tok/s;    324 sec;
+[2024-03-01 16:03:57,278 INFO] Step 4750/10000; acc: 37.6; ppl:  18.1; xent: 2.9; lr: 1.00000; sents:    2264; bsz:  284/ 484/45; 6169/10522 tok/s;    326 sec;
+[2024-03-01 16:03:59,646 INFO] Step 4800/10000; acc: 36.7; ppl:  19.1; xent: 3.0; lr: 1.00000; sents:    2366; bsz:  306/ 522/47; 6454/11022 tok/s;    329 sec;
+[2024-03-01 16:04:03,600 INFO] valid stats calculation
+                           took: 3.9535622596740723 s.
+[2024-03-01 16:04:03,601 INFO] Train perplexity: 83.6411
+[2024-03-01 16:04:03,601 INFO] Train accuracy: 24.4468
+[2024-03-01 16:04:03,601 INFO] Sentences processed: 224054
+[2024-03-01 16:04:03,601 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:04:03,601 INFO] Validation perplexity: 139.635
+[2024-03-01 16:04:03,601 INFO] Validation accuracy: 25.5335
+[2024-03-01 16:04:03,602 INFO] Saving checkpoint gt/gt_02_step_4800.pt
+[2024-03-01 16:04:06,145 INFO] Step 4850/10000; acc: 38.0; ppl:  17.5; xent: 2.9; lr: 1.00000; sents:    2366; bsz:  278/ 488/47; 2136/3758 tok/s;    335 sec;
+[2024-03-01 16:04:08,566 INFO] Step 4900/10000; acc: 37.5; ppl:  18.3; xent: 2.9; lr: 1.00000; sents:    2361; bsz:  297/ 514/47; 6136/10609 tok/s;    338 sec;
+[2024-03-01 16:04:11,052 INFO] Step 4950/10000; acc: 37.7; ppl:  17.6; xent: 2.9; lr: 1.00000; sents:    2277; bsz:  290/ 503/46; 5840/10127 tok/s;    340 sec;
+[2024-03-01 16:04:13,300 INFO] Step 5000/10000; acc: 39.4; ppl:  16.2; xent: 2.8; lr: 1.00000; sents:    2263; bsz:  288/ 486/45; 6414/10813 tok/s;    342 sec;
+[2024-03-01 16:04:17,256 INFO] valid stats calculation
+                           took: 3.9549360275268555 s.
+[2024-03-01 16:04:17,256 INFO] Train perplexity: 78.5794
+[2024-03-01 16:04:17,256 INFO] Train accuracy: 24.991
+[2024-03-01 16:04:17,256 INFO] Sentences processed: 233321
+[2024-03-01 16:04:17,256 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:04:17,256 INFO] Validation perplexity: 149.89
+[2024-03-01 16:04:17,256 INFO] Validation accuracy: 25.5021
+[2024-03-01 16:04:17,257 INFO] Saving checkpoint gt/gt_02_step_5000.pt
+[2024-03-01 16:04:19,914 INFO] Step 5050/10000; acc: 37.7; ppl:  17.3; xent: 2.9; lr: 1.00000; sents:    2371; bsz:  305/ 524/47; 2303/3961 tok/s;    349 sec;
+[2024-03-01 16:04:22,259 INFO] Step 5100/10000; acc: 39.5; ppl:  15.7; xent: 2.8; lr: 1.00000; sents:    2362; bsz:  279/ 489/47; 5939/10429 tok/s;    351 sec;
+[2024-03-01 16:04:24,674 INFO] Step 5150/10000; acc: 39.7; ppl:  15.9; xent: 2.8; lr: 1.00000; sents:    2262; bsz:  286/ 490/45; 5910/10134 tok/s;    354 sec;
+[2024-03-01 16:04:27,063 INFO] Step 5200/10000; acc: 39.9; ppl:  15.3; xent: 2.7; lr: 1.00000; sents:    2383; bsz:  287/ 509/48; 6001/10666 tok/s;    356 sec;
+[2024-03-01 16:04:31,026 INFO] valid stats calculation
+                           took: 3.9627397060394287 s.
+[2024-03-01 16:04:31,027 INFO] Train perplexity: 73.9051
+[2024-03-01 16:04:31,027 INFO] Train accuracy: 25.5395
+[2024-03-01 16:04:31,027 INFO] Sentences processed: 242699
+[2024-03-01 16:04:31,027 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:04:31,027 INFO] Validation perplexity: 146.325
+[2024-03-01 16:04:31,027 INFO] Validation accuracy: 25.7155
+[2024-03-01 16:04:31,028 INFO] Saving checkpoint gt/gt_02_step_5200.pt
+[2024-03-01 16:04:33,399 INFO] Step 5250/10000; acc: 39.9; ppl:  15.2; xent: 2.7; lr: 1.00000; sents:    2370; bsz:  297/ 503/47; 2343/3967 tok/s;    362 sec;
+[2024-03-01 16:04:35,970 INFO] Step 5300/10000; acc: 39.6; ppl:  15.3; xent: 2.7; lr: 1.00000; sents:    2269; bsz:  294/ 505/45; 5723/9813 tok/s;    365 sec;
+[2024-03-01 16:04:38,308 INFO] Step 5350/10000; acc: 41.0; ppl:  14.3; xent: 2.7; lr: 1.00000; sents:    2469; bsz:  287/ 509/49; 6139/10891 tok/s;    367 sec;
+[2024-03-01 16:04:40,682 INFO] Step 5400/10000; acc: 40.8; ppl:  14.5; xent: 2.7; lr: 1.00000; sents:    2263; bsz:  290/ 493/45; 6099/10377 tok/s;    370 sec;
+[2024-03-01 16:04:44,623 INFO] valid stats calculation
+                           took: 3.9399893283843994 s.
+[2024-03-01 16:04:44,623 INFO] Train perplexity: 69.6281
+[2024-03-01 16:04:44,623 INFO] Train accuracy: 26.0877
+[2024-03-01 16:04:44,623 INFO] Sentences processed: 252070
+[2024-03-01 16:04:44,623 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:04:44,623 INFO] Validation perplexity: 156.932
+[2024-03-01 16:04:44,623 INFO] Validation accuracy: 25.4268
+[2024-03-01 16:04:44,624 INFO] Saving checkpoint gt/gt_02_step_5400.pt
+[2024-03-01 16:04:47,230 INFO] Step 5450/10000; acc: 40.8; ppl:  14.0; xent: 2.6; lr: 1.00000; sents:    2276; bsz:  287/ 502/46; 2190/3830 tok/s;    376 sec;
+[2024-03-01 16:04:49,452 INFO] Step 5500/10000; acc: 40.9; ppl:  14.1; xent: 2.6; lr: 1.00000; sents:    2365; bsz:  297/ 505/47; 6692/11368 tok/s;    378 sec;
+[2024-03-01 16:04:51,967 INFO] Step 5550/10000; acc: 41.6; ppl:  13.7; xent: 2.6; lr: 1.00000; sents:    2364; bsz:  290/ 504/47; 5767/10030 tok/s;    381 sec;
+[2024-03-01 16:04:54,332 INFO] Step 5600/10000; acc: 42.1; ppl:  13.0; xent: 2.6; lr: 1.00000; sents:    2354; bsz:  278/ 489/47; 5881/10341 tok/s;    383 sec;
+[2024-03-01 16:04:58,307 INFO] valid stats calculation
+                           took: 3.974836587905884 s.
+[2024-03-01 16:04:58,307 INFO] Train perplexity: 65.709
+[2024-03-01 16:04:58,307 INFO] Train accuracy: 26.6315
+[2024-03-01 16:04:58,308 INFO] Sentences processed: 261429
+[2024-03-01 16:04:58,308 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:04:58,308 INFO] Validation perplexity: 163.651
+[2024-03-01 16:04:58,308 INFO] Validation accuracy: 24.6611
+[2024-03-01 16:04:58,308 INFO] Saving checkpoint gt/gt_02_step_5600.pt
+[2024-03-01 16:05:00,981 INFO] Step 5650/10000; acc: 40.6; ppl:  14.1; xent: 2.6; lr: 1.00000; sents:    2265; bsz:  304/ 512/45; 2285/3852 tok/s;    390 sec;
+[2024-03-01 16:05:03,361 INFO] Step 5700/10000; acc: 42.8; ppl:  12.5; xent: 2.5; lr: 1.00000; sents:    2382; bsz:  282/ 502/48; 5913/10545 tok/s;    392 sec;
+[2024-03-01 16:05:05,711 INFO] Step 5750/10000; acc: 43.1; ppl:  12.3; xent: 2.5; lr: 1.00000; sents:    2258; bsz:  287/ 485/45; 6106/10312 tok/s;    395 sec;
+[2024-03-01 16:05:08,245 INFO] Step 5800/10000; acc: 42.0; ppl:  13.1; xent: 2.6; lr: 1.00000; sents:    2368; bsz:  304/ 521/47; 5998/10276 tok/s;    397 sec;
+[2024-03-01 16:05:12,171 INFO] valid stats calculation
+                           took: 3.925410270690918 s.
+[2024-03-01 16:05:12,172 INFO] Train perplexity: 62.1122
+[2024-03-01 16:05:12,172 INFO] Train accuracy: 27.1686
+[2024-03-01 16:05:12,172 INFO] Sentences processed: 270702
+[2024-03-01 16:05:12,172 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:05:12,172 INFO] Validation perplexity: 162.414
+[2024-03-01 16:05:12,172 INFO] Validation accuracy: 25.2071
+[2024-03-01 16:05:12,173 INFO] Saving checkpoint gt/gt_02_step_5800.pt
+[2024-03-01 16:05:14,652 INFO] Step 5850/10000; acc: 43.4; ppl:  12.0; xent: 2.5; lr: 1.00000; sents:    2370; bsz:  279/ 492/47; 2176/3839 tok/s;    404 sec;
+[2024-03-01 16:05:17,046 INFO] Step 5900/10000; acc: 42.7; ppl:  12.3; xent: 2.5; lr: 1.00000; sents:    2362; bsz:  286/ 497/47; 5965/10382 tok/s;    406 sec;
+[2024-03-01 16:05:19,417 INFO] Step 5950/10000; acc: 43.2; ppl:  11.8; xent: 2.5; lr: 1.00000; sents:    2282; bsz:  287/ 500/46; 6051/10547 tok/s;    408 sec;
+[2024-03-01 16:05:21,673 INFO] Step 6000/10000; acc: 43.7; ppl:  11.9; xent: 2.5; lr: 1.00000; sents:    2360; bsz:  298/ 507/47; 6597/11239 tok/s;    411 sec;
+[2024-03-01 16:05:25,614 INFO] valid stats calculation
+                           took: 3.939889669418335 s.
+[2024-03-01 16:05:25,614 INFO] Train perplexity: 58.8094
+[2024-03-01 16:05:25,614 INFO] Train accuracy: 27.7025
+[2024-03-01 16:05:25,614 INFO] Sentences processed: 280076
+[2024-03-01 16:05:25,614 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:05:25,614 INFO] Validation perplexity: 162.261
+[2024-03-01 16:05:25,614 INFO] Validation accuracy: 26.0859
+[2024-03-01 16:05:25,615 INFO] Saving checkpoint gt/gt_02_step_6000.pt
+[2024-03-01 16:05:28,276 INFO] Step 6050/10000; acc: 43.3; ppl:  12.1; xent: 2.5; lr: 1.00000; sents:    2369; bsz:  305/ 521/47; 2308/3943 tok/s;    417 sec;
+[2024-03-01 16:05:30,644 INFO] Step 6100/10000; acc: 45.0; ppl:  11.1; xent: 2.4; lr: 1.00000; sents:    2262; bsz:  280/ 484/45; 5921/10232 tok/s;    420 sec;
+[2024-03-01 16:05:33,101 INFO] Step 6150/10000; acc: 43.6; ppl:  11.5; xent: 2.4; lr: 1.00000; sents:    2368; bsz:  287/ 503/47; 5844/10242 tok/s;    422 sec;
+[2024-03-01 16:05:35,417 INFO] Step 6200/10000; acc: 45.3; ppl:  10.5; xent: 2.4; lr: 1.00000; sents:    2280; bsz:  284/ 492/46; 6130/10618 tok/s;    424 sec;
+[2024-03-01 16:05:39,376 INFO] valid stats calculation
+                           took: 3.9588472843170166 s.
+[2024-03-01 16:05:39,377 INFO] Train perplexity: 55.7709
+[2024-03-01 16:05:39,377 INFO] Train accuracy: 28.2362
+[2024-03-01 16:05:39,377 INFO] Sentences processed: 289355
+[2024-03-01 16:05:39,377 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:05:39,377 INFO] Validation perplexity: 179.045
+[2024-03-01 16:05:39,377 INFO] Validation accuracy: 25.1632
+[2024-03-01 16:05:39,378 INFO] Saving checkpoint gt/gt_02_step_6200.pt
+[2024-03-01 16:05:41,761 INFO] Step 6250/10000; acc: 45.0; ppl:  11.1; xent: 2.4; lr: 1.00000; sents:    2470; bsz:  298/ 519/49; 2349/4092 tok/s;    431 sec;
+[2024-03-01 16:05:44,311 INFO] Step 6300/10000; acc: 45.2; ppl:  10.7; xent: 2.4; lr: 1.00000; sents:    2262; bsz:  295/ 497/45; 5780/9745 tok/s;    433 sec;
+[2024-03-01 16:05:46,688 INFO] Step 6350/10000; acc: 45.6; ppl:  10.6; xent: 2.4; lr: 1.00000; sents:    2370; bsz:  288/ 506/47; 6061/10642 tok/s;    436 sec;
+[2024-03-01 16:05:49,118 INFO] Step 6400/10000; acc: 45.1; ppl:  10.6; xent: 2.4; lr: 1.00000; sents:    2368; bsz:  285/ 499/47; 5857/10273 tok/s;    438 sec;
+[2024-03-01 16:05:53,075 INFO] valid stats calculation
+                           took: 3.957310676574707 s.
+[2024-03-01 16:05:53,076 INFO] Train perplexity: 52.9519
+[2024-03-01 16:05:53,076 INFO] Train accuracy: 28.7706
+[2024-03-01 16:05:53,076 INFO] Sentences processed: 298825
+[2024-03-01 16:05:53,076 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:05:53,076 INFO] Validation perplexity: 174.348
+[2024-03-01 16:05:53,076 INFO] Validation accuracy: 25.8913
+[2024-03-01 16:05:53,077 INFO] Saving checkpoint gt/gt_02_step_6400.pt
+[2024-03-01 16:05:55,553 INFO] Step 6450/10000; acc: 46.1; ppl:   9.9; xent: 2.3; lr: 1.00000; sents:    2277; bsz:  284/ 490/46; 2203/3807 tok/s;    445 sec;
+[2024-03-01 16:05:57,828 INFO] Step 6500/10000; acc: 46.5; ppl:   9.9; xent: 2.3; lr: 1.00000; sents:    2359; bsz:  289/ 500/47; 6355/10983 tok/s;    447 sec;
+[2024-03-01 16:06:00,409 INFO] Step 6550/10000; acc: 45.0; ppl:  10.6; xent: 2.4; lr: 1.00000; sents:    2265; bsz:  309/ 517/45; 5994/10005 tok/s;    449 sec;
+[2024-03-01 16:06:02,769 INFO] Step 6600/10000; acc: 47.1; ppl:   9.5; xent: 2.2; lr: 1.00000; sents:    2359; bsz:  275/ 487/47; 5833/10325 tok/s;    452 sec;
+[2024-03-01 16:06:06,727 INFO] valid stats calculation
+                           took: 3.9579286575317383 s.
+[2024-03-01 16:06:06,727 INFO] Train perplexity: 50.3522
+[2024-03-01 16:06:06,727 INFO] Train accuracy: 29.2947
+[2024-03-01 16:06:06,727 INFO] Sentences processed: 308085
+[2024-03-01 16:06:06,727 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:06:06,727 INFO] Validation perplexity: 191.654
+[2024-03-01 16:06:06,728 INFO] Validation accuracy: 25.5837
+[2024-03-01 16:06:06,728 INFO] Saving checkpoint gt/gt_02_step_6600.pt
+[2024-03-01 16:06:09,353 INFO] Step 6650/10000; acc: 46.4; ppl:  10.0; xent: 2.3; lr: 1.00000; sents:    2370; bsz:  286/ 503/47; 2171/3817 tok/s;    458 sec;
+[2024-03-01 16:06:11,704 INFO] Step 6700/10000; acc: 47.1; ppl:   9.3; xent: 2.2; lr: 1.00000; sents:    2378; bsz:  293/ 509/48; 6234/10835 tok/s;    461 sec;
+[2024-03-01 16:06:14,141 INFO] Step 6750/10000; acc: 46.6; ppl:   9.6; xent: 2.3; lr: 1.00000; sents:    2253; bsz:  296/ 500/45; 6073/10268 tok/s;    463 sec;
+[2024-03-01 16:06:16,551 INFO] Step 6800/10000; acc: 48.0; ppl:   9.0; xent: 2.2; lr: 1.00000; sents:    2371; bsz:  287/ 497/47; 5958/10312 tok/s;    466 sec;
+[2024-03-01 16:06:20,510 INFO] valid stats calculation
+                           took: 3.9589638710021973 s.
+[2024-03-01 16:06:20,511 INFO] Train perplexity: 47.9362
+[2024-03-01 16:06:20,511 INFO] Train accuracy: 29.8163
+[2024-03-01 16:06:20,511 INFO] Sentences processed: 317457
+[2024-03-01 16:06:20,511 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:06:20,511 INFO] Validation perplexity: 200.627
+[2024-03-01 16:06:20,511 INFO] Validation accuracy: 25.5586
+[2024-03-01 16:06:20,512 INFO] Saving checkpoint gt/gt_02_step_6800.pt
+[2024-03-01 16:06:23,104 INFO] Step 6850/10000; acc: 47.8; ppl:   9.1; xent: 2.2; lr: 1.00000; sents:    2258; bsz:  279/ 483/45; 2131/3686 tok/s;    472 sec;
+[2024-03-01 16:06:25,615 INFO] Step 6900/10000; acc: 47.1; ppl:   9.6; xent: 2.3; lr: 1.00000; sents:    2369; bsz:  296/ 514/47; 5895/10239 tok/s;    475 sec;
+[2024-03-01 16:06:27,978 INFO] Step 6950/10000; acc: 48.1; ppl:   8.7; xent: 2.2; lr: 1.00000; sents:    2276; bsz:  286/ 493/46; 6060/10441 tok/s;    477 sec;
+[2024-03-01 16:06:30,305 INFO] Step 7000/10000; acc: 48.0; ppl:   8.9; xent: 2.2; lr: 1.00000; sents:    2362; bsz:  290/ 504/47; 6241/10820 tok/s;    479 sec;
+[2024-03-01 16:06:34,306 INFO] valid stats calculation
+                           took: 4.001047849655151 s.
+[2024-03-01 16:06:34,307 INFO] Train perplexity: 45.7203
+[2024-03-01 16:06:34,307 INFO] Train accuracy: 30.3259
+[2024-03-01 16:06:34,307 INFO] Sentences processed: 326722
+[2024-03-01 16:06:34,307 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:06:34,307 INFO] Validation perplexity: 202.235
+[2024-03-01 16:06:34,307 INFO] Validation accuracy: 25.364
+[2024-03-01 16:06:34,308 INFO] Saving checkpoint gt/gt_02_step_7000.pt
+[2024-03-01 16:06:36,920 INFO] Step 7050/10000; acc: 47.6; ppl:   8.9; xent: 2.2; lr: 1.00000; sents:    2373; bsz:  301/ 512/47; 2276/3871 tok/s;    486 sec;
+[2024-03-01 16:06:39,422 INFO] Step 7100/10000; acc: 48.0; ppl:   9.0; xent: 2.2; lr: 1.00000; sents:    2367; bsz:  296/ 514/47; 5912/10273 tok/s;    488 sec;
+[2024-03-01 16:06:41,786 INFO] Step 7150/10000; acc: 48.5; ppl:   8.6; xent: 2.1; lr: 1.00000; sents:    2374; bsz:  280/ 493/47; 5924/10429 tok/s;    491 sec;
+[2024-03-01 16:06:44,079 INFO] Step 7200/10000; acc: 49.4; ppl:   8.3; xent: 2.1; lr: 1.00000; sents:    2272; bsz:  284/ 492/45; 6199/10737 tok/s;    493 sec;
+[2024-03-01 16:06:48,033 INFO] valid stats calculation
+                           took: 3.9536352157592773 s.
+[2024-03-01 16:06:48,033 INFO] Train perplexity: 43.6511
+[2024-03-01 16:06:48,033 INFO] Train accuracy: 30.8287
+[2024-03-01 16:06:48,033 INFO] Sentences processed: 336108
+[2024-03-01 16:06:48,033 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:06:48,034 INFO] Validation perplexity: 202.496
+[2024-03-01 16:06:48,034 INFO] Validation accuracy: 25.5021
+[2024-03-01 16:06:48,034 INFO] Saving checkpoint gt/gt_02_step_7200.pt
+[2024-03-01 16:06:50,539 INFO] Step 7250/10000; acc: 48.6; ppl:   8.7; xent: 2.2; lr: 1.00000; sents:    2360; bsz:  304/ 516/47; 2350/3995 tok/s;    500 sec;
+[2024-03-01 16:06:52,997 INFO] Step 7300/10000; acc: 49.6; ppl:   8.1; xent: 2.1; lr: 1.00000; sents:    2271; bsz:  293/ 497/45; 5964/10120 tok/s;    502 sec;
+[2024-03-01 16:06:55,429 INFO] Step 7350/10000; acc: 49.7; ppl:   8.2; xent: 2.1; lr: 1.00000; sents:    2366; bsz:  282/ 497/47; 5807/10217 tok/s;    504 sec;
+[2024-03-01 16:06:57,832 INFO] Step 7400/10000; acc: 49.4; ppl:   8.2; xent: 2.1; lr: 1.00000; sents:    2265; bsz:  283/ 488/45; 5886/10158 tok/s;    507 sec;
+[2024-03-01 16:07:01,822 INFO] valid stats calculation
+                           took: 3.9899802207946777 s.
+[2024-03-01 16:07:01,823 INFO] Train perplexity: 41.7387
+[2024-03-01 16:07:01,823 INFO] Train accuracy: 31.3265
+[2024-03-01 16:07:01,823 INFO] Sentences processed: 345370
+[2024-03-01 16:07:01,823 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:07:01,823 INFO] Validation perplexity: 201.049
+[2024-03-01 16:07:01,823 INFO] Validation accuracy: 25.7406
+[2024-03-01 16:07:01,824 INFO] Saving checkpoint gt/gt_02_step_7400.pt
+[2024-03-01 16:07:04,285 INFO] Step 7450/10000; acc: 50.8; ppl:   7.6; xent: 2.0; lr: 1.00000; sents:    2380; bsz:  280/ 496/48; 2171/3846 tok/s;    513 sec;
+[2024-03-01 16:07:06,634 INFO] Step 7500/10000; acc: 49.1; ppl:   8.3; xent: 2.1; lr: 1.00000; sents:    2360; bsz:  305/ 518/47; 6490/11020 tok/s;    516 sec;
+[2024-03-01 16:07:09,088 INFO] Step 7550/10000; acc: 50.5; ppl:   7.8; xent: 2.1; lr: 1.00000; sents:    2368; bsz:  301/ 515/47; 6135/10503 tok/s;    518 sec;
+[2024-03-01 16:07:11,463 INFO] Step 7600/10000; acc: 51.0; ppl:   7.6; xent: 2.0; lr: 1.00000; sents:    2366; bsz:  280/ 493/47; 5903/10385 tok/s;    521 sec;
+[2024-03-01 16:07:15,399 INFO] valid stats calculation
+                           took: 3.9349961280822754 s.
+[2024-03-01 16:07:15,399 INFO] Train perplexity: 39.9233
+[2024-03-01 16:07:15,399 INFO] Train accuracy: 31.8311
+[2024-03-01 16:07:15,399 INFO] Sentences processed: 354844
+[2024-03-01 16:07:15,399 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:07:15,399 INFO] Validation perplexity: 211.112
+[2024-03-01 16:07:15,399 INFO] Validation accuracy: 25.9101
+[2024-03-01 16:07:15,400 INFO] Saving checkpoint gt/gt_02_step_7600.pt
+[2024-03-01 16:07:18,093 INFO] Step 7650/10000; acc: 50.3; ppl:   7.7; xent: 2.0; lr: 1.00000; sents:    2263; bsz:  284/ 492/45; 2145/3711 tok/s;    527 sec;
+[2024-03-01 16:07:20,389 INFO] Step 7700/10000; acc: 51.5; ppl:   7.3; xent: 2.0; lr: 1.00000; sents:    2277; bsz:  289/ 496/46; 6299/10812 tok/s;    529 sec;
+[2024-03-01 16:07:22,723 INFO] Step 7750/10000; acc: 50.5; ppl:   7.8; xent: 2.1; lr: 1.00000; sents:    2361; bsz:  302/ 515/47; 6467/11026 tok/s;    532 sec;
+[2024-03-01 16:07:25,136 INFO] Step 7800/10000; acc: 52.1; ppl:   7.1; xent: 2.0; lr: 1.00000; sents:    2362; bsz:  285/ 496/47; 5911/10271 tok/s;    534 sec;
+[2024-03-01 16:07:29,112 INFO] valid stats calculation
+                           took: 3.975569248199463 s.
+[2024-03-01 16:07:29,113 INFO] Train perplexity: 38.2516
+[2024-03-01 16:07:29,113 INFO] Train accuracy: 32.3236
+[2024-03-01 16:07:29,113 INFO] Sentences processed: 364107
+[2024-03-01 16:07:29,113 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:07:29,113 INFO] Validation perplexity: 215.4
+[2024-03-01 16:07:29,113 INFO] Validation accuracy: 25.5586
+[2024-03-01 16:07:29,114 INFO] Saving checkpoint gt/gt_02_step_7800.pt
+[2024-03-01 16:07:31,812 INFO] Step 7850/10000; acc: 50.8; ppl:   7.5; xent: 2.0; lr: 1.00000; sents:    2261; bsz:  287/ 495/45; 2152/3707 tok/s;    541 sec;
+[2024-03-01 16:07:34,205 INFO] Step 7900/10000; acc: 51.0; ppl:   7.5; xent: 2.0; lr: 1.00000; sents:    2372; bsz:  293/ 509/47; 6113/10645 tok/s;    543 sec;
+[2024-03-01 16:07:36,448 INFO] Step 7950/10000; acc: 52.4; ppl:   6.8; xent: 1.9; lr: 1.00000; sents:    2377; bsz:  282/ 496/48; 6279/11071 tok/s;    545 sec;
+[2024-03-01 16:07:38,782 INFO] Step 8000/10000; acc: 51.6; ppl:   7.4; xent: 2.0; lr: 1.00000; sents:    2360; bsz:  303/ 514/47; 6492/11022 tok/s;    548 sec;
+[2024-03-01 16:07:42,782 INFO] valid stats calculation
+                           took: 4.000151634216309 s.
+[2024-03-01 16:07:42,783 INFO] Train perplexity: 36.69
+[2024-03-01 16:07:42,783 INFO] Train accuracy: 32.8042
+[2024-03-01 16:07:42,783 INFO] Sentences processed: 373477
+[2024-03-01 16:07:42,783 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:07:42,783 INFO] Validation perplexity: 212.453
+[2024-03-01 16:07:42,783 INFO] Validation accuracy: 25.9352
+[2024-03-01 16:07:42,784 INFO] Saving checkpoint gt/gt_02_step_8000.pt
+[2024-03-01 16:07:45,321 INFO] Step 8050/10000; acc: 52.7; ppl:   6.8; xent: 1.9; lr: 1.00000; sents:    2370; bsz:  285/ 499/47; 2182/3813 tok/s;    554 sec;
+[2024-03-01 16:07:47,836 INFO] Step 8100/10000; acc: 51.9; ppl:   7.2; xent: 2.0; lr: 1.00000; sents:    2261; bsz:  286/ 492/45; 5686/9786 tok/s;    557 sec;
+[2024-03-01 16:07:50,318 INFO] Step 8150/10000; acc: 52.0; ppl:   7.1; xent: 2.0; lr: 1.00000; sents:    2374; bsz:  297/ 514/47; 5980/10356 tok/s;    559 sec;
+[2024-03-01 16:07:52,582 INFO] Step 8200/10000; acc: 53.9; ppl:   6.4; xent: 1.9; lr: 1.00000; sents:    2380; bsz:  282/ 495/48; 6218/10943 tok/s;    562 sec;
+[2024-03-01 16:07:56,534 INFO] valid stats calculation
+                           took: 3.9514105319976807 s.
+[2024-03-01 16:07:56,534 INFO] Train perplexity: 35.2246
+[2024-03-01 16:07:56,534 INFO] Train accuracy: 33.2865
+[2024-03-01 16:07:56,534 INFO] Sentences processed: 382862
+[2024-03-01 16:07:56,534 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:07:56,535 INFO] Validation perplexity: 233.686
+[2024-03-01 16:07:56,535 INFO] Validation accuracy: 25.5147
+[2024-03-01 16:07:56,535 INFO] Saving checkpoint gt/gt_02_step_8200.pt
+[2024-03-01 16:07:59,091 INFO] Step 8250/10000; acc: 53.3; ppl:   6.8; xent: 1.9; lr: 1.00000; sents:    2255; bsz:  292/ 493/45; 2243/3789 tok/s;    568 sec;
+[2024-03-01 16:08:01,519 INFO] Step 8300/10000; acc: 53.4; ppl:   6.7; xent: 1.9; lr: 1.00000; sents:    2368; bsz:  285/ 498/47; 5875/10245 tok/s;    571 sec;
+[2024-03-01 16:08:04,176 INFO] Step 8350/10000; acc: 52.3; ppl:   7.0; xent: 1.9; lr: 1.00000; sents:    2262; bsz:  300/ 510/45; 5639/9607 tok/s;    573 sec;
+[2024-03-01 16:08:06,559 INFO] Step 8400/10000; acc: 53.6; ppl:   6.5; xent: 1.9; lr: 1.00000; sents:    2373; bsz:  283/ 495/47; 5942/10393 tok/s;    576 sec;
+[2024-03-01 16:08:10,507 INFO] valid stats calculation
+                           took: 3.947307586669922 s.
+[2024-03-01 16:08:10,507 INFO] Train perplexity: 33.8712
+[2024-03-01 16:08:10,507 INFO] Train accuracy: 33.7577
+[2024-03-01 16:08:10,507 INFO] Sentences processed: 392120
+[2024-03-01 16:08:10,507 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:08:10,507 INFO] Validation perplexity: 234.391
+[2024-03-01 16:08:10,507 INFO] Validation accuracy: 25.4833
+[2024-03-01 16:08:10,508 INFO] Saving checkpoint gt/gt_02_step_8400.pt
+[2024-03-01 16:08:13,010 INFO] Step 8450/10000; acc: 54.2; ppl:   6.3; xent: 1.8; lr: 1.00000; sents:    2278; bsz:  287/ 494/46; 2222/3833 tok/s;    582 sec;
+[2024-03-01 16:08:15,299 INFO] Step 8500/10000; acc: 53.2; ppl:   6.7; xent: 1.9; lr: 1.00000; sents:    2460; bsz:  297/ 519/49; 6499/11332 tok/s;    584 sec;
+[2024-03-01 16:08:17,761 INFO] Step 8550/10000; acc: 53.8; ppl:   6.4; xent: 1.9; lr: 1.00000; sents:    2265; bsz:  288/ 491/45; 5853/9965 tok/s;    587 sec;
+[2024-03-01 16:08:20,233 INFO] Step 8600/10000; acc: 54.3; ppl:   6.3; xent: 1.8; lr: 1.00000; sents:    2370; bsz:  282/ 499/47; 5715/10104 tok/s;    589 sec;
+[2024-03-01 16:08:24,184 INFO] valid stats calculation
+                           took: 3.9501986503601074 s.
+[2024-03-01 16:08:24,184 INFO] Train perplexity: 32.5855
+[2024-03-01 16:08:24,184 INFO] Train accuracy: 34.225
+[2024-03-01 16:08:24,184 INFO] Sentences processed: 401493
+[2024-03-01 16:08:24,185 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:08:24,185 INFO] Validation perplexity: 249.706
+[2024-03-01 16:08:24,185 INFO] Validation accuracy: 25.2762
+[2024-03-01 16:08:24,185 INFO] Saving checkpoint gt/gt_02_step_8600.pt
+[2024-03-01 16:08:26,863 INFO] Step 8650/10000; acc: 52.9; ppl:   6.7; xent: 1.9; lr: 1.00000; sents:    2272; bsz:  304/ 515/45; 2294/3886 tok/s;    596 sec;
+[2024-03-01 16:08:29,097 INFO] Step 8700/10000; acc: 55.6; ppl:   5.9; xent: 1.8; lr: 1.00000; sents:    2371; bsz:  278/ 491/47; 6233/10980 tok/s;    598 sec;
+[2024-03-01 16:08:31,523 INFO] Step 8750/10000; acc: 53.9; ppl:   6.3; xent: 1.8; lr: 1.00000; sents:    2360; bsz:  305/ 518/47; 6292/10682 tok/s;    601 sec;
+[2024-03-01 16:08:33,926 INFO] Step 8800/10000; acc: 55.8; ppl:   5.8; xent: 1.8; lr: 1.00000; sents:    2260; bsz:  272/ 471/45; 5650/9809 tok/s;    603 sec;
+[2024-03-01 16:08:37,917 INFO] valid stats calculation
+                           took: 3.98978328704834 s.
+[2024-03-01 16:08:37,917 INFO] Train perplexity: 31.3827
+[2024-03-01 16:08:37,917 INFO] Train accuracy: 34.6841
+[2024-03-01 16:08:37,917 INFO] Sentences processed: 410756
+[2024-03-01 16:08:37,917 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:08:37,917 INFO] Validation perplexity: 259.454
+[2024-03-01 16:08:37,917 INFO] Validation accuracy: 25.3138
+[2024-03-01 16:08:37,918 INFO] Saving checkpoint gt/gt_02_step_8800.pt
+[2024-03-01 16:08:40,609 INFO] Step 8850/10000; acc: 54.3; ppl:   6.4; xent: 1.8; lr: 1.00000; sents:    2362; bsz:  296/ 514/47; 2213/3844 tok/s;    610 sec;
+[2024-03-01 16:08:43,015 INFO] Step 8900/10000; acc: 54.4; ppl:   6.2; xent: 1.8; lr: 1.00000; sents:    2277; bsz:  291/ 501/46; 6039/10413 tok/s;    612 sec;
+[2024-03-01 16:08:45,192 INFO] Step 8950/10000; acc: 55.8; ppl:   5.8; xent: 1.8; lr: 1.00000; sents:    2476; bsz:  289/ 509/50; 6632/11688 tok/s;    614 sec;
+[2024-03-01 16:08:47,574 INFO] Step 9000/10000; acc: 55.2; ppl:   5.9; xent: 1.8; lr: 1.00000; sents:    2257; bsz:  295/ 498/45; 6193/10447 tok/s;    617 sec;
+[2024-03-01 16:08:51,537 INFO] valid stats calculation
+                           took: 3.9627809524536133 s.
+[2024-03-01 16:08:51,537 INFO] Train perplexity: 30.2497
+[2024-03-01 16:08:51,537 INFO] Train accuracy: 35.1376
+[2024-03-01 16:08:51,537 INFO] Sentences processed: 420128
+[2024-03-01 16:08:51,537 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:08:51,537 INFO] Validation perplexity: 252.348
+[2024-03-01 16:08:51,537 INFO] Validation accuracy: 25.7469
+[2024-03-01 16:08:51,538 INFO] Saving checkpoint gt/gt_02_step_9000.pt
+[2024-03-01 16:08:54,093 INFO] Step 9050/10000; acc: 56.2; ppl:   5.8; xent: 1.7; lr: 1.00000; sents:    2366; bsz:  280/ 491/47; 2145/3768 tok/s;    623 sec;
+[2024-03-01 16:08:56,536 INFO] Step 9100/10000; acc: 54.8; ppl:   6.2; xent: 1.8; lr: 1.00000; sents:    2364; bsz:  298/ 514/47; 6091/10531 tok/s;    626 sec;
+[2024-03-01 16:08:58,984 INFO] Step 9150/10000; acc: 55.2; ppl:   5.9; xent: 1.8; lr: 1.00000; sents:    2278; bsz:  292/ 502/46; 5960/10257 tok/s;    628 sec;
+[2024-03-01 16:09:01,250 INFO] Step 9200/10000; acc: 56.4; ppl:   5.6; xent: 1.7; lr: 1.00000; sents:    2368; bsz:  294/ 506/47; 6480/11165 tok/s;    630 sec;
+[2024-03-01 16:09:05,204 INFO] valid stats calculation
+                           took: 3.9543251991271973 s.
+[2024-03-01 16:09:05,205 INFO] Train perplexity: 29.1849
+[2024-03-01 16:09:05,205 INFO] Train accuracy: 35.5853
+[2024-03-01 16:09:05,205 INFO] Sentences processed: 429504
+[2024-03-01 16:09:05,205 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:09:05,205 INFO] Validation perplexity: 256.44
+[2024-03-01 16:09:05,205 INFO] Validation accuracy: 25.3389
+[2024-03-01 16:09:05,206 INFO] Saving checkpoint gt/gt_02_step_9200.pt
+[2024-03-01 16:09:07,725 INFO] Step 9250/10000; acc: 56.7; ppl:   5.6; xent: 1.7; lr: 1.00000; sents:    2358; bsz:  288/ 499/47; 2224/3857 tok/s;    637 sec;
+[2024-03-01 16:09:10,156 INFO] Step 9300/10000; acc: 56.4; ppl:   5.6; xent: 1.7; lr: 1.00000; sents:    2265; bsz:  283/ 485/45; 5824/9984 tok/s;    639 sec;
+[2024-03-01 16:09:12,750 INFO] Step 9350/10000; acc: 55.6; ppl:   5.9; xent: 1.8; lr: 1.00000; sents:    2262; bsz:  289/ 498/45; 5578/9595 tok/s;    642 sec;
+[2024-03-01 16:09:15,184 INFO] Step 9400/10000; acc: 56.3; ppl:   5.7; xent: 1.7; lr: 1.00000; sents:    2483; bsz:  296/ 526/50; 6075/10796 tok/s;    644 sec;
+[2024-03-01 16:09:19,387 INFO] valid stats calculation
+                           took: 4.20237922668457 s.
+[2024-03-01 16:09:19,387 INFO] Train perplexity: 28.1857
+[2024-03-01 16:09:19,388 INFO] Train accuracy: 36.0258
+[2024-03-01 16:09:19,388 INFO] Sentences processed: 438872
+[2024-03-01 16:09:19,388 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:09:19,388 INFO] Validation perplexity: 264.077
+[2024-03-01 16:09:19,388 INFO] Validation accuracy: 25.5586
+[2024-03-01 16:09:19,389 INFO] Saving checkpoint gt/gt_02_step_9400.pt
+[2024-03-01 16:09:21,815 INFO] Step 9450/10000; acc: 57.3; ppl:   5.4; xent: 1.7; lr: 1.00000; sents:    2264; bsz:  284/ 482/45; 2143/3632 tok/s;    651 sec;
+[2024-03-01 16:09:24,415 INFO] Step 9500/10000; acc: 55.5; ppl:   5.8; xent: 1.8; lr: 1.00000; sents:    2366; bsz:  305/ 524/47; 5861/10088 tok/s;    653 sec;
+[2024-03-01 16:09:26,874 INFO] Step 9550/10000; acc: 57.1; ppl:   5.4; xent: 1.7; lr: 1.00000; sents:    2266; bsz:  284/ 485/45; 5778/9867 tok/s;    656 sec;
+[2024-03-01 16:09:29,720 INFO] Step 9600/10000; acc: 57.2; ppl:   5.5; xent: 1.7; lr: 1.00000; sents:    2367; bsz:  283/ 496/47; 4964/8722 tok/s;    659 sec;
+[2024-03-01 16:09:34,350 INFO] valid stats calculation
+                           took: 4.629989147186279 s.
+[2024-03-01 16:09:34,350 INFO] Train perplexity: 27.2533
+[2024-03-01 16:09:34,350 INFO] Train accuracy: 36.4536
+[2024-03-01 16:09:34,350 INFO] Sentences processed: 448135
+[2024-03-01 16:09:34,350 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:09:34,350 INFO] Validation perplexity: 278.104
+[2024-03-01 16:09:34,350 INFO] Validation accuracy: 25.4833
+[2024-03-01 16:09:34,351 INFO] Saving checkpoint gt/gt_02_step_9600.pt
+[2024-03-01 16:09:37,310 INFO] Step 9650/10000; acc: 56.6; ppl:   5.5; xent: 1.7; lr: 1.00000; sents:    2376; bsz:  299/ 522/48; 1968/3441 tok/s;    666 sec;
+[2024-03-01 16:09:39,687 INFO] Step 9700/10000; acc: 58.7; ppl:   5.1; xent: 1.6; lr: 1.00000; sents:    2370; bsz:  282/ 487/47; 5926/10248 tok/s;    669 sec;
+[2024-03-01 16:09:43,071 INFO] Step 9750/10000; acc: 57.1; ppl:   5.4; xent: 1.7; lr: 1.00000; sents:    2260; bsz:  295/ 501/45; 4356/7398 tok/s;    672 sec;
+[2024-03-01 16:09:46,646 INFO] Step 9800/10000; acc: 58.1; ppl:   5.1; xent: 1.6; lr: 1.00000; sents:    2358; bsz:  277/ 488/47; 3873/6829 tok/s;    676 sec;
+[2024-03-01 16:09:50,719 INFO] valid stats calculation
+                           took: 4.07185173034668 s.
+[2024-03-01 16:09:50,719 INFO] Train perplexity: 26.3585
+[2024-03-01 16:09:50,719 INFO] Train accuracy: 36.884
+[2024-03-01 16:09:50,719 INFO] Sentences processed: 457499
+[2024-03-01 16:09:50,719 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:09:50,719 INFO] Validation perplexity: 297.871
+[2024-03-01 16:09:50,719 INFO] Validation accuracy: 25.4708
+[2024-03-01 16:09:50,720 INFO] Saving checkpoint gt/gt_02_step_9800.pt
+[2024-03-01 16:09:53,653 INFO] Step 9850/10000; acc: 56.4; ppl:   5.6; xent: 1.7; lr: 1.00000; sents:    2269; bsz:  306/ 514/45; 2182/3667 tok/s;    683 sec;
+[2024-03-01 16:09:57,211 INFO] Step 9900/10000; acc: 57.9; ppl:   5.2; xent: 1.6; lr: 1.00000; sents:    2374; bsz:  281/ 502/47; 3956/7061 tok/s;    686 sec;
+[2024-03-01 16:10:00,548 INFO] Step 9950/10000; acc: 59.4; ppl:   4.9; xent: 1.6; lr: 1.00000; sents:    2366; bsz:  283/ 488/47; 4246/7316 tok/s;    690 sec;
+[2024-03-01 16:10:04,121 INFO] Step 10000/10000; acc: 57.7; ppl:   5.3; xent: 1.7; lr: 1.00000; sents:    2268; bsz:  295/ 503/45; 4135/7036 tok/s;    693 sec;
+[2024-03-01 16:10:08,374 INFO] valid stats calculation
+                           took: 4.252899885177612 s.
+[2024-03-01 16:10:08,375 INFO] Train perplexity: 25.5175
+[2024-03-01 16:10:08,375 INFO] Train accuracy: 37.303
+[2024-03-01 16:10:08,375 INFO] Sentences processed: 466776
+[2024-03-01 16:10:08,375 INFO] Average bsz:  290/ 501/47
+[2024-03-01 16:10:08,375 INFO] Validation perplexity: 287.82
+[2024-03-01 16:10:08,375 INFO] Validation accuracy: 25.2762
+[2024-03-01 16:10:08,376 INFO] Saving checkpoint gt/gt_02_step_10000.pt
