@@ -76,98 +76,127 @@ p=0.062
 
 ### Baseline vs. PTFT-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/asl_test.txt asl/runs/tg/run02/step_9000_pre_02.txt asl/runs/tg-ft-both/run02_03/step_5400_pre_03.txt
+p=0.011
 
 ### PTFT vs. PTFT-enc
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/asl_test.txt asl/runs/tg-finetune/run03_02/step_9600_pre_02.txt asl/runs/tg-ft-enc/run02_01/step_10600_pre_01.txt
+p=0.205
 
 ### PTFT vs. PTFT-dec
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/asl_test.txt asl/runs/tg-finetune/run03_02/step_9600_pre_02.txt asl/runs/tg-ft-dec/run03_03/step_11400_pre_03.txt
+p=0.445
 
 ### PTFT vs. PTFT-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/asl_test.txt asl/runs/tg-finetune/run03_02/step_9600_pre_02.txt asl/runs/tg-ft-both/run02_03/step_5400_pre_03.txt
+p=0.
 
 # ASL G2T
 
 ### Baseline vs. PTFT
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/en_test_tok.txt asl/runs/gt/run02/step_5400_pre_02.txt asl/runs/gt-finetune/run01_02/step_12200_pre_02.txt
+p=0.037
 
 ### Baseline vs. PTFT-enc
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/en_test_tok.txt asl/runs/gt/run02/step_5400_pre_02.txt asl/runs/gt-ft-enc/run02_03/step_10200_pre_03.txt
+p=0.023
 
 ### Baseline vs. PTFT-dec
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/en_test_tok.txt asl/runs/gt/run02/step_5400_pre_02.txt asl/runs/gt-ft-dec/run03_02/step_11400_pre_02.txt
+p=0.131
 
 ### Baseline vs. PTFT-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/en_test_tok.txt asl/runs/gt/run02/step_5400_pre_02.txt asl/runs/gt-ft-both/run01_02/step_14400_pre_02.txt
+p=0.003
 
 ### PTFT vs. PTFT-enc
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/en_test_tok.txt asl/runs/gt-finetune/run01_02/step_12200_pre_02.txt asl/runs/gt-ft-enc/run02_03/step_10200_pre_03.txt
+p=0.329
 
 ### PTFT vs. PTFT-dec
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/en_test_tok.txt asl/runs/gt-finetune/run01_02/step_12200_pre_02.txt asl/runs/gt-ft-dec/run03_02/step_11400_pre_02.txt
+p=0.272
 
 ### PTFT vs. PTFT-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok asl/data/parallel/en_test_tok.txt asl/runs/gt-finetune/run01_02/step_12200_pre_02.txt asl/runs/gt-ft-both/run01_02/step_14400_pre_02.txt
+p=0.296
 
 
 # FinSL T2G
 
 ### Baseline vs. Baseline-enc
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_base_embenc_out_test_model_step_9500.txt
+p=0.303
 
 ### Baseline vs. Baseline-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_base_embboth_out_test_model_step_4300.txt
+p=0.323
 
 ### Baseline vs. PTFT
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_ptft_noemb_out_test_model_5100_step_12400.txt
+p=0.151
 
 ### Baseline vs. PTFT-enc
-python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_ptft_emb fsl/runs/t2g_ptft_embenc_out_test_model_3900_step_12100.txt
+python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_ptft_embenc_out_test_model_3900_step_12100.txt
+p=0.279
 
 ### Baseline vs. PTFT-dec
-python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_ptft_emb fsl/runs/t2g_ptft_embdec_out_test_model_4200_step_8900.txt
+python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_ptft_embdec_out_test_model_4200_step_8900.txt
+p=0.170
 
 ### Baseline vs. PTFT-both
-python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_ptft_emb fsl/runs/t2g_ptft_embboth_out_test_model_2800_step_10700.txt
+python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_base_noemb_out_test_model_step_8400.txt fsl/runs/t2g_ptft_embboth_out_test_model_2800_step_10700.txt
+p=0.081
 
 ### PTFT vs. PTFT-enc
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_ptft_noemb_out_test_model_5100_step_12400.txt fsl/runs/t2g_ptft_embenc_out_test_model_3900_step_12100.txt
+p=0.417
 
 ### PTFT vs. PTFT-dec
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_ptft_noemb_out_test_model_5100_step_12400.txt fsl/runs/t2g_ptft_embdec_out_test_model_4200_step_8900.txt
+p=0.486
 
 ### PTFT vs. PTFT-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_gloss.txt fsl/runs/t2g_ptft_noemb_out_test_model_5100_step_12400.txt fsl/runs/t2g_ptft_embboth_out_test_model_2800_step_10700.txt
-
+p=0.382
 
 # FinSL G2T
 
 ### Baseline vs. Baseline-enc
-python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/
+python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/g2t_ptft_noemb_out_test_model_9000_step_15000.txt
+p=0.021
 
 ### Baseline vs. Baseline-dec
-python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/
+python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/g2t_base_embdec_out_test_model_step_8400.txt
+p=0.298
 
 ### Baseline vs. Baseline-both
-python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/
+python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/g2t_base_embboth_out_test_model_step_7400.txt
+p=0.224
 
 ### Baseline vs. PTFT
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/g2t_ptft_noemb_out_test_model_9000_step_15000.txt
+p=0.019
 
 ### Baseline vs. PTFT-enc
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/g2t_base_embenc_out_test_model_step_10000.txt
+p=0.309
 
 ### Baseline vs. PTFT-dec
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/g2t_base_embdec_out_test_model_step_8400.txt
+p=0.291
 
 ### Baseline vs. PTFT-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_base_noemb_out_test_model_step_9600.txt fsl/runs/g2t_base_embboth_out_test_model_step_7400.txt
+p=0.223
 
 ### PTFT vs. PTFT-enc
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_ptft_noemb_out_test_model_9000_step_15000.txt fsl/runs/g2t_base_embenc_out_test_model_step_10000.txt
+p=0.038
 
 ### PTFT vs. PTFT-dec
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_ptft_noemb_out_test_model_9000_step_15000.txt fsl/runs/g2t_base_embdec_out_test_model_step_8400.txt
+p=0.047
 
 ### PTFT vs. PTFT-both
 python ../util-scripts/paired-bootstrap.py --eval_type bleu_detok fsl/data/test_text.txt fsl/runs/g2t_ptft_noemb_out_test_model_9000_step_15000.txt fsl/runs/g2t_base_embboth_out_test_model_step_7400.txt
+p=0.081
