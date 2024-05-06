@@ -6,9 +6,12 @@ import numpy as np
 sys.path.insert(0, "./utils/metrics/")
 sys.path.insert(1, './utils')
 from nmt_eval import compute_metrics
+from nltk.translate.chrf_score import corpus_chrf
 
 # METRICS = ['BLEU-GMEAN', 'BLEU-1', 'BLEU-2', 'BLEU-3', 'BLEU-4', 'BLEU-1 (NLTK)', 'BLEU-2 (NLTK)', 'BLEU-3 (NLTK)', 'BLEU-4 (NLTK)', 'METEOR', 'ROUGE_1-F_SCORE', 'ROUGE_1-R_SCORE', 'ROUGE_1-P_SCORE', 'ROUGE_2-F_SCORE', 'ROUGE_2-R_SCORE', 'ROUGE_2-P_SCORE', 'ROUGE_L-F_SCORE', 'ROUGE_L-R_SCORE', 'ROUGE_L-P_SCORE', 'SACREBLEU-CHAR', 'SACREBLEU-INTL', 'TER']
-METRICS = ['METEOR', 'ROUGE_L-F_SCORE', 'SACREBLEU-INTL', 'SACREBLEU-CHAR']
+# METRICS = ['METEOR', 'ROUGE_L-F_SCORE', 'SACREBLEU-INTL', 'SACREBLEU-CHAR', 'CHRF', 'TER']
+METRICS = ['SACREBLEU-INTL', 'CHRF', 'METEOR', 'ROUGE_L-F_SCORE']
+# METRICS = ['CHRF']
 
 if len(sys.argv) < 3:
     print("Usage:")
@@ -37,17 +40,21 @@ elif sys.argv[2] == '-f':
 with open(REFERENCE) as f:
     reference = [s.strip() for s in f.readlines()]
 
-print("References:",len(reference))
+# print("References:",len(reference))
 
 all_results = []
 
 for candidate_file in CANDIDATES:
-    print(candidate_file)
+    # print(candidate_file)
     with open(candidate_file) as f:
         candidate = [s.strip() for s in f.readlines()]
     results = compute_metrics(reference, candidate)
+    # results = {}
+    if 'CHRF' in METRICS:
+        results['CHRF'] = corpus_chrf([s.split() for s in reference],[s.split() for s in candidate])
     all_results.append([candidate_file.split('/')[-1]] + [results[m] for m in METRICS])
+    # all_results.append([results[m] for m in METRICS])
 
-print("FILE\t" + "\t".join(s.replace(' ','_') for s in METRICS))
+print("FILE " + " ".join(s.replace(' ','_') for s in METRICS))
 for r in all_results:
-    print("\t".join([str(s) for s in r]))
+    print(" ".join([str(s) for s in r]))
