@@ -8,7 +8,7 @@ def compute_sacre_bleu(hypotheses, references,
                  smooth_method = "exp",
                  smooth_value = 0.0,
                  force = False,
-                 lowercase = False,
+                 lowercase = True,
                  tokenize = "none",
                  use_effective_order = False):
 
